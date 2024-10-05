@@ -6,75 +6,67 @@
 /*   By: aokhapki <aokhapki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 16:08:39 by aokhapki          #+#    #+#             */
-/*   Updated: 2024/06/21 21:58:34 by aokhapki         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:56:00 by aokhapki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include <stdbool.h>
+# define NUM_ELEMENTS 500
+# define MAX_VALUE 10000
+
 # include <limits.h>
-# include <unistd.h>
-# include <stdlib.h>
+# include <stdbool.h>
 # include <stdio.h>
-# include "../libft/libft.h"
-# include "../ft_printf/ft_printf.h"
+# include <stdlib.h>
+# include <unistd.h>
 
 typedef struct s_stack
 {
-	int					value;
-	int					current_position;
-	int					index;
-	int					push_cost;
-	bool				above_median;
-	bool				cheapest;
-	struct s_stack		*target_node;
-	struct s_stack		*next;
-	struct s_stack		*previous;
-}						t_stack;
+	int	size;
+}		t_stack;
 
-//Handle errors
-void		error_duplicate(t_stack *a);
-void		free_errors(t_stack **a, int error);
-void		print_error(void);
-int			error_not_num(char *a);
+// parsing
+int		*get_nbs(char **argv, int *size_a);
+int		*get_nbs2(int argc, char **argv, int *size_a);
 
-//Stack initiation
+// sorting
+void	rank_nbs(int *arr_a, int size_a);
+void	map_to_ranks(int *arr_a, int *sorted_arr, int size_a);
+void	ft_putendl_fd(char *s, int fd);
+int		ft_atoi(const char *str);
+char	**ft_split(char const *s, char c);
 
-void		stack_create(t_stack **a, char **argv);
-void		stack_init(t_stack **a, char **argv);
-void		append_node(t_stack **stack, int nb);
+// checkers
+int		check_error(int *arr, int size);
+int		*get_arr_b(int *arr_b, int size_a, int *size_b);
+int		check_ascending(int *arr_a, int size_a);
+int		check_descending(int *arr_a, int size_a);
+void	final_check(int *arr_a, int *arr_b, int size_a, int size_b);
+void	catch_error(int *arr);
 
-//Sorting
+// operations
+void	sa(int *arr_a);
+void	sb(int *arr_b);
+void	sa_sb(int *arr_a, int *arr_b);
+void	pb(int *arr_a, int *arr_b, int *size_a, int *size_b);
+void	pa(int *arr_a, int *arr_b, int *size_a, int *size_b);
+void	ra(int *arr_a, int size_a);
+void	rb(int *arr_a, int size_b);
+void	ra_rb(int *arr_a, int *arr_b, int size_a, int size_b);
+void	reverse_ra(int *arr_a, int size_a);
+void	reverse_rb(int *arr_b, int size_b);
+void	reverse_ra_rb(int *arr_a, int *arr_b, int size_a, int size_b);
 
-void		sort_a(void);
-void		sort_b(void);
-void		sort_3(t_stack **a);
-void		sort_till_3(void);
-void		final_sort_big(t_stack **a, t_stack **b);
+// void get_max_min(int *arr, int size, int *min, int *max);
+int		calc_chunk_size(int *nbr);
+int		rotations_count(int *arr_a, int size_a);
 
-static void	swap(t_stack **stack);
-void		sa(t_stack **a);
-void		sb(t_stack **b);
-void		ss(t_stack **a, t_stack **b);
-
-static void	push(t_stack **dest, t_stack **source);
-void		pa(t_stack **a, t_stack **b);
-void		pb(t_stack **a, t_stack **b);
-
-static void	rotate(t_stack **stack);
-void		ra(t_stack **a);
-void		rb(t_stack **b);
-void		rr(t_stack **a, t_stack **b);
-
-static void	reverse_rotate(t_stack **stack);
-void		rra(t_stack **a);
-void		rrb(t_stack **b);
-void		rrr(t_stack **a, t_stack **b);
-
-//Commands
-
-//Algorithms
+// sorting
+void	sort_3(int *arr_a, int size_a);
+void	sort_5(int *arr_a, int *arr_b, int size_a, int size_b);
+void	push_chunks_to_b(int *arr_a, int *arr_b, int *size_a, int *size_b);
+void	push_back_to_a(int *arr_a, int *arr_b, int *size_a, int *size_b);
 
 #endif

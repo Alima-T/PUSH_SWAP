@@ -6,41 +6,42 @@
 #    By: aokhapki <aokhapki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/14 12:40:49 by aokhapki          #+#    #+#              #
-#    Updated: 2024/05/14 16:59:58 by aokhapki         ###   ########.fr        #
+#    Updated: 2024/10/05 18:54:42 by aokhapki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SOURCE			= push_swap.c
-
-LIBFT			= $(LIBFT_DIR)/libft.a
-
-FT_PRINTF		= $(FT_PRINTF_DIR)/libftprintf.a
-
-CC				= cc
-
-CFLAGS			= -Wall -Wextra -Werror -I.
-
-LIBFT_DIR		= libft
-
-FT_PRINTF_DIR	= ft_printf
-
-RM				= rm -f
 
 NAME			= push_swap
 
-push_swap:		$(SOURCE) $(LIBFT) $(FT_PRINTF)
-				$(CC) $(CFLAGS) -o $@ $(SOURCE) -L$(LIBFT_DIR) -lft -L$(FT_PRINTF_DIR) -lftprintf
+# Compiler and CFlags
+CC				= cc
+CFLAGS			= -Wall -Werror -Wextra
+RM				= rm -f
 
+# Source Files
+SRCS 			= 	push_swap.c \
+					checkers.c \
+					catch_error.c \
+					ft_atoi.c \
+					ft_split.c \
+					operators.c \
+					parsing.c \
+					rank_numbers.c \
+					sorting.c \
+					utils.c
+					
+# Objects		
+OBJS 			= 	$(SRCS:.c=.o)
+
+# Commands
 all:			$(NAME)
-
-clean:			$(MAKE) -C $(LIBFT_DIR) clean
-				$(MAKE) -C $(FT_PRINTF_DIR) clean
-				$(RM) $(NAME)
-
+$(NAME):		$(OBJS)
+				ar rcs $(NAME) $(OBJS)
+clean:
+				$(RM) $(OBJS)
 fclean:			clean
-				$(MAKE) -C $(LIBFT_DIR) fclean
-				$(MAKE) -C $(FT_PRINTF_DIR) fclean
-
-re:				fclean all
-
+				$(RM) $(NAME)
+re:				fclean $(NAME)
+bonus:			$(OBJS) 
+				ar rcs $(NAME) $(OBJS)
 .PHONY:			all clean fclean re 
