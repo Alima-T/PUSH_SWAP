@@ -16,7 +16,7 @@
 // Function to sort a small array of 3 elements
 void	sort_3(int *arr_a, int size_a) 
 {
-	while (!check_ascending(arr_a, size_a))/
+	while (!check_ascending(arr_a, size_a))
 	{
 		if (arr_a[0] > arr_a[1] && arr_a[1] < arr_a[2])
 			sa(arr_a); 
