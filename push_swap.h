@@ -6,7 +6,7 @@
 /*   By: aokhapki <aokhapki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 16:08:39 by aokhapki          #+#    #+#             */
-/*   Updated: 2024/10/05 18:56:00 by aokhapki         ###   ########.fr       */
+/*   Updated: 2024/11/21 16:41:53 by aokhapki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	reverse_ra(int *arr_a, int size_a);
 void	reverse_rb(int *arr_b, int size_b);
 void	reverse_ra_rb(int *arr_a, int *arr_b, int size_a, int size_b);
 
-// void get_max_min(int *arr, int size, int *min, int *max);
+// void	get_max_min(int *arr, int size, int *min, int *max);
 int		calc_chunk_size(int *nbr);
 int		rotations_count(int *arr_a, int size_a);
 

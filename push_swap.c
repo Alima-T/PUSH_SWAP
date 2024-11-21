@@ -6,7 +6,7 @@
 /*   By: aokhapki <aokhapki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 16:08:13 by aokhapki          #+#    #+#             */
-/*   Updated: 2024/10/05 18:46:41 by aokhapki         ###   ########.fr       */
+/*   Updated: 2024/11/21 16:41:34 by aokhapki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char **argv)
 	arr_b = 0;
 	size_a = 0;
 	size_b = 0;
+
 	if (argc < 2 || (argc == 2 && !argv[1][0]))
 		return (1);
 	else if (argc == 2)
