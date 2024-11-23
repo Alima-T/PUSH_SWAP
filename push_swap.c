@@ -6,34 +6,54 @@
 /*   By: aokhapki <aokhapki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 16:08:13 by aokhapki          #+#    #+#             */
-/*   Updated: 2024/11/21 16:41:34 by aokhapki         ###   ########.fr       */
+/*   Updated: 2024/11/23 18:15:21 by aokhapki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
+
+void	init(t_stack **stack_a, char **nums, int ac)
 {
-	int				size_a;
-	int				size_b;
-	int				*arr_a;
-	int				*arr_b;
+	int i;
+	long nbr;
+	
+	i = 0;
+	while(!(nums[i] == NULL))
+	{
+		nbr = ft_atoi(nums[i]);
+		if(check_error(stack_a, nums[i], nbr) == 1)
+		{
+			
+			ft_putendl_fd("Error! Duplicates or invalid arguments.\n", 2); 
+			free_all(stack_a, nums, ac);
+			exit(EXIT_FAILURE);
+		}
+		fill_stack(stack_a, (int)nbr);
+		i++;
+	}
+}
 
-	arr_a = NULL;
-	arr_b = 0;
-	size_a = 0;
-	size_b = 0;
+void fill_stack(t_stack **stack_a, int nbr)
+{
+	t_stack *node;
+	t_stack *last;
 
-	if (argc < 2 || (argc == 2 && !argv[1][0]))
-		return (1);
-	else if (argc == 2)
-		arr_a = get_nbs(argv, &size_a);
-	else if (argc > 2)
-		arr_a = get_nbs2(argc, argv, &size_a);
-	if (check_error(arr_a, size_a))
-		arr_b = get_arr_b(arr_b, size_a, &size_b);
-	rank_nbs(arr_a, size_a);
-	final_check(arr_a, arr_b, size_a, size_b);
-	free(arr_b);
-	free(arr_a);
+	if(!(node = malloc(sizeof(t_stack))))
+		exit(EXIT_FAILURE);
+	node->value = nbr;
+	node->i = -1;
+	node->previous = NULL;
+	node->next = NULL;
+	if(*stack_a == NULL)
+	{
+		*stack_a = node;
+		node->previous = NULL;
+		return ;
+	}
+	last = *stack_a;
+	while(!(last->next == NULL))
+		last = last->next;
+	last->next = node;
+	node->previous = last; 
 }
