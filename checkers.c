@@ -6,74 +6,99 @@
 /*   By: aokhapki <aokhapki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:49:54 by aokhapki          #+#    #+#             */
-/*   Updated: 2024/11/21 16:41:04 by aokhapki         ###   ########.fr       */
+/*   Updated: 2024/11/24 21:51:05 by aokhapki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	check_ascending(int *arr_a, int size_a)
+/// @brief // == -__INT_MAX__ - 1 or − 2147483647−1 = -2147483648. 
+/// @param nbr We can not use just -2147483648
+/// @return
+
+int	ft_is_integer(int nbr)
 {
-	int	i;
-
-	i = 0;
-	while (i < size_a - 1)
-	{
-		if (arr_a[i] > arr_a[i + 1])
-		{
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
-
-int	check_descending(int *arr_a, int size_a)
-{
-	int	i;
-
-	i = 0;
-	while (i < size_a - 1)
-	{
-		if (arr_a[i] < arr_a[i + 1])
-		{
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
-
-int	calc_chunk_size(int *nb)
-{
-	int	i;
-
-	if (*nb < 4)
+	if (nbr > INT_MAX || nbr < INT_MIN)
 		return (1);
-	i = 2;
-	while (i * i < *nb)
-		i++;
-	if (i * i > *nb)
-	{
-		if ((i * i - *nb) < ((i - 1) * (i - 1) + (-*nb)))
-			return (i);
-	}
-	return (i - 1);
+	return (0);
 }
 
-void	final_check(int *arr_a, int *arr_b, int size_a, int size_b)
+int	ft_is_duplicate(t_stack *stack, int nbr)
 {
-	if (check_ascending(arr_a, size_a))
-		exit(EXIT_SUCCESS);
-	else if (size_a == 2 && !check_ascending(arr_a, size_a))
-		sa(arr_a);
-	else if (size_a == 3 && !check_ascending(arr_a, size_a))
-		sort_3(arr_a, size_a);
-	else if (size_a <= 5)
-		sort_5(arr_a, arr_b, size_a, size_b);
-	else
+	while (stack)
 	{
-		push_chunks_to_b(arr_a, arr_b, &size_a, &size_b);
-		push_back_to_a(arr_a, arr_b, &size_a, &size_b);
+		if (stack->value == nbr)
+			return (1);
+		stack = stack->next;
 	}
+	return (0);
+}
+
+int	ft_is_digit(char *s)
+{
+	if (!s || *s == '\0')
+		return (1);
+	if (*s == '+' || *s == '-')
+		s++;
+	while (*s)
+	{
+		if (*s >= '0' && *s <= '9')
+			return (1);
+		s++;
+	}
+	return (0);
+}
+
+int	catch_error(t_stack **stack, char *nums, long nbr)
+{
+	if (!ft_is_digit(nums))
+	{
+		ft_putendl_fd("Error! Not digits.\n", 2);
+		return (1);
+	}
+	if (nbr > INT_MAX || nbr < INT_MIN)
+	{
+		ft_putendl_fd("Error! Not valid integer.\n", 2);
+		return (1);
+	}
+	// else if(!ft_is_integer(nbr))
+	// {
+	// 	ft_putendl_fd("Error! Not valid integer.\n", 2);
+	// 	return(1);
+	// }
+	if (ft_is_duplicate(*stack, nbr))
+	{
+		ft_putendl_fd("Error! Duplicates.\n", 2);
+		return (1);
+	}
+	return (0);
+}
+
+void	free_all(t_stack **a, char **nums, int ac)
+{
+	int		i;
+	t_stack	*temp;
+	t_stack	*temp2;
+
+	i = 0;
+	if (ac == 2)
+	{
+		while (nums[i] != NULL)
+		{
+			free(nums[i]);
+			i++;
+		}
+		free(nums);
+		nums = NULL;
+	}
+	if (a == NULL || *a == NULL)
+		return ;
+	temp = *a;
+	while (temp)
+	{
+		temp2 = temp->next;
+		free(temp);
+		temp = temp2;
+	}
+	*a = NULL;
 }
