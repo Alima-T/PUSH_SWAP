@@ -6,7 +6,7 @@
 #    By: aokhapki <aokhapki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/14 12:40:49 by aokhapki          #+#    #+#              #
-#    Updated: 2024/11/26 13:37:55 by aokhapki         ###   ########.fr        #
+#    Updated: 2024/11/26 16:14:32 by aokhapki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,17 +15,16 @@ CC				= gcc
 CFLAGS 			= -Wall -Wextra -Werror -Ilibft
 RM				= rm -f
 
-SRCS =			double_operators.c \
-				fill_stack.c \
-			 	swap.c \
-				rotate.c \
-				reverse_rotate.c \
-				push.c \
-				sorting.c \
+SRCS =			checkers.c \
 				gets.c\
-				checkers.c \
+				fill_stack.c \
+				operator_basic.c \
+				operator_double.c \
+				operator_push_swap.c \
+				operator_reverse_rotate.c \
+				push_swap.c \
+				sorting.c \
 				sets.c \
-				push_swap.c
 
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
