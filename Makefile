@@ -6,7 +6,7 @@
 #    By: aokhapki <aokhapki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/14 12:40:49 by aokhapki          #+#    #+#              #
-#    Updated: 2024/11/26 16:14:32 by aokhapki         ###   ########.fr        #
+#    Updated: 2024/11/26 16:46:21 by aokhapki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRCS =			checkers.c \
 				sorting.c \
 				sets.c \
 
-LIBFT_DIR = ./libft
+LIBFT_DIR = ./LIBFT
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBS = -L$(LIBFT_DIR) -lft
 
