@@ -6,61 +6,20 @@
 /*   By: aokhapki <aokhapki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 15:29:41 by aokhapki          #+#    #+#             */
-/*   Updated: 2024/11/24 21:39:34 by aokhapki         ###   ########.fr       */
+/*   Updated: 2024/11/26 13:48:42 by aokhapki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	set_cost(t_stack *stack_a, t_stack *stack_b)
-{
-	int	calc;
-	int	size_a;
-	int	size_b;
-
-	calc = 0;
-	size_a = get_size(stack_a);
-	size_b = get_size(stack_a);
-	while (stack_b != NULL)
-	{
-		if (stack_b->up_middle == true)
-			calc = stack_b->index;
-		else
-			calc = size_b - (stack_b->index);
-		if (stack_b && stack_b->purpose_node
-			&& stack_b->purpose_node->up_middle == true)
-			calc = calc + stack_b->purpose_node->index;
-		else
-			calc = size_a - stack_b->purpose_node->index;
-		stack_b->cost = calc;
-		stack_b = stack_b->next;
-	}
-}
-
-void	set_cheapest(t_stack *stack_b)
-{
-	t_stack	*result;
-
-	if (!stack_b)
-		return ;
-	result = stack_b;
-	while (stack_b)
-	{
-		if (stack_b->cost < result->cost)
-			result = stack_b;
-		stack_b = stack_b->next;
-	}
-	result->cheapest = true;
-}
 
 void	set_index(t_stack *stack)
 {
 	int	i;
 	int	middle;
 
-	if (!stack)
-		return ;
 	i = 0;
+	if (stack == NULL)
+		return ;
 	middle = get_size(stack) / 2;
 	while (stack)
 	{
@@ -72,30 +31,69 @@ void	set_index(t_stack *stack)
 		i++;
 		stack = stack->next;
 	}
-	return ;
 }
 
-void	set_purpose(t_stack *stack_a, t_stack *stack_b)
+void	set_focus(t_stack *a, t_stack *b)
 {
+	int		focus_val;
 	t_stack	*tmp;
-	int		result;
 
 	tmp = NULL;
-	while (stack_b)
+	while (b)
 	{
-		tmp = stack_a;
-		result = INT_MAX;
+		tmp = a;
+		focus_val = 2147483647;
 		while (tmp)
 		{
-			if (tmp->value < result && tmp->value > stack_b->value)
+			if (tmp->val > b->val && tmp->val < focus_val)
 			{
-				stack_b->purpose_node = tmp;
-				result = tmp->value;
+				b->focus_node = tmp;
+				focus_val = tmp->val;
 			}
 			tmp = tmp->next;
 		}
-		if (result == INT_MAX)
-			stack_b->purpose_node = get_min(stack_a);
-		stack_b = stack_b->next;
+		if (focus_val == 2147483647)
+			b->focus_node = get_min(a);
+		b = b->next;
 	}
+}
+
+void	set_cost(t_stack *a, t_stack *b)
+{
+	int	price;
+	int	a_len;
+	int	b_len;
+
+	price = 0;
+	a_len = get_size(a);
+	b_len = get_size(b);
+	while (b != NULL)
+	{
+		if (b->up_middle == true)
+			price = b->index;
+		else
+			price = b_len - (b->index);
+		if (b && b->focus_node && b->focus_node->up_middle == true)
+			price += b->focus_node->index;
+		else
+			price += a_len - (b->focus_node->index);
+		b->cost = price;
+		b = b->next;
+	}
+}
+
+void	set_cheap(t_stack *b)
+{
+	t_stack	*cheap;
+
+	cheap = b;
+	if (b == NULL)
+		return ;
+	while (b)
+	{
+		if (b->cost < cheap->cost)
+			cheap = b;
+		b = b->next;
+	}
+	cheap->cheap = true;
 }

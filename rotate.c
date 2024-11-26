@@ -6,7 +6,7 @@
 /*   By: aokhapki <aokhapki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 14:31:56 by aokhapki          #+#    #+#             */
-/*   Updated: 2024/11/24 21:40:54 by aokhapki         ###   ########.fr       */
+/*   Updated: 2024/11/26 13:55:34 by aokhapki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,30 @@
 
 void	rotate(t_stack **stack)
 {
+	t_stack	*top;
 	t_stack	*tmp;
-	t_stack	*tmp_first;
 
-	if ((*stack)->next == NULL || *stack == NULL)
+	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
 		return ;
-	tmp_first = *stack; // store address of the head_node
+	top = *stack;
 	tmp = (*stack)->next;
+	tmp->prior = NULL;
 	*stack = tmp;
-	while (tmp->next) // go to the end of the stack, while node has next node, when next = NULL, exit from the loop
+	while (tmp->next)
 		tmp = tmp->next;
-	tmp->next = tmp_first;
-	tmp_first->previous = tmp;
-	tmp_first->next = NULL;
+	tmp->next = top;
+	top->next = NULL;
+	top->prior = tmp;
 }
 
-void	ra(t_stack **stack_a)
+void	ra(t_stack **a)
 {
-	rotate(stack_a);
-	ft_putendl_fd("ra\n", 1);
+	rotate(a);
+	write(1, "ra\n", 3);
 }
 
-void	rb(t_stack **stack_b)
+void	rb(t_stack **b)
 {
-	rotate(stack_b);
-	ft_putendl_fd("rb\n", 1);
-}
-
-void	rr(t_stack **stack_a, t_stack **stack_b)
-{
-	rotate(stack_a);
-	rotate(stack_b);
-	ft_putendl_fd("rr\n", 1);
+	rotate(b);
+	write(1, "rb\n", 3);
 }

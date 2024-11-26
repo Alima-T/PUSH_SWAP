@@ -6,62 +6,59 @@
 /*   By: aokhapki <aokhapki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 21:45:17 by aokhapki          #+#    #+#             */
-/*   Updated: 2024/11/24 21:47:31 by aokhapki         ###   ########.fr       */
+/*   Updated: 2024/11/26 13:50:47 by aokhapki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	find_max(t_stack *stack)
+int	find_max(t_stack *a)
 {
 	int	max;
 
-	if (stack == NULL)
-		return (INT_MIN);
 	max = INT_MIN;
-	while (stack != NULL)
+	while (a != NULL)
 	{
-		if (stack->value > max)
-			max = stack->value;
-		stack = stack->next;
+		if (a->val > max)
+			max = a->val;
+		a = a->next;
 	}
 	return (max);
 }
 
-// Function to sort a small array of 3 elements
-void	sort_3(t_stack **stack)
+void	sort_3(t_stack **a)
 {
-	int	max;
+	int	max_num;
 
-	max = find_max(*stack);
-	if ((*stack)->value == max)
-		ra(stack);
-	else if ((*stack)->next->value == max)
-		rra(stack);
-	if ((*stack)->value > (*stack)->next->value)
-		sa(stack);
+	max_num = find_max(*a);
+	if ((*a)->val == max_num)
+		ra(a);
+	else if ((*a)->next->val == max_num)
+		rra(a);
+	if ((*a)->val > (*a)->next->val)
+		sa(a);
 }
 
-bool	is_sorted(t_stack *stack_a)
+bool	is_sorted(t_stack *a)
 {
-	while (stack_a->next != NULL)
+	while (a->next != NULL)
 	{
-		if (stack_a->value > stack_a->next->value)
+		if (a->val > a->next->val)
 			return (false);
-		stack_a = stack_a->next;
+		a = a->next;
 	}
 	return (true);
 }
 
-void	big_sort(t_stack **stack_a, t_stack **stack_b)
+void	big_sort(t_stack **a, t_stack **b)
 {
-	if (!is_sorted(*stack_a))
+	if (!is_sorted(*a))
 	{
-		if (get_size(*stack_a) == 2)
-			sa(stack_a);
-		else if (get_size(*stack_a) == 3)
-			sort_3(stack_a);
+		if (get_size(*a) == 2)
+			sa(a);
+		else if (get_size(*a) == 3)
+			sort_3(a);
 		else
-			push_swap(stack_a, stack_b);
+			push_swap(a, b);
 	}
 }

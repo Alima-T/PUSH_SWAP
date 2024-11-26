@@ -6,35 +6,36 @@
 /*   By: aokhapki <aokhapki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 16:48:34 by aokhapki          #+#    #+#             */
-/*   Updated: 2024/11/24 21:51:38 by aokhapki         ###   ########.fr       */
+/*   Updated: 2024/11/26 13:36:56 by aokhapki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	push(t_stack **dest_stack, t_stack **src_stack)
+void	push(t_stack **dest, t_stack **src)
 {
 	t_stack	*tmp;
 
-	if (*src_stack == NULL) // if stack is empty
+	if (*src == NULL)
 		return ;
-	tmp = *src_stack;                  // store head of source stack
-	*src_stack = (*src_stack)->next;   // make head of stack next node,	becouse we are going to push top to another stack
-	tmp->next = *dest_stack;           // make next of top node, which we are pushing, head of ctack where we push it
-	if (*dest_stack)                   // if stack is not empty
-		(*dest_stack)->previous = tmp; // make previous, which was NULL, new node tmp
-	// tmp->previous = NULL; //  redundant, it was NULL
-	*dest_stack = tmp;
+	tmp = *src;
+	*src = (*src)->next;
+	if (*src)
+		(*src)->prior = NULL;
+	tmp->next = *dest;
+	if (*dest)
+		(*dest)->prior = tmp;
+	*dest = tmp;
 }
 
-void	pa(t_stack **stack_a, t_stack **stack_b)
+void	pa(t_stack **a, t_stack **b)
 {
-	push(stack_a, stack_b);
-	ft_putendl_fd("pa\n", 1);
+	push(a, b);
+	write(1, "pa\n", 3);
 }
 
-void	pb(t_stack **stack_a, t_stack **stack_b)
+void	pb(t_stack **a, t_stack **b)
 {
-	push(stack_b, stack_a);
-	ft_putendl_fd("pb\n", 1);
+	push(b, a);
+	write(1, "pb\n", 3);
 }
