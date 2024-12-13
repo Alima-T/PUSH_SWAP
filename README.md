@@ -28,7 +28,7 @@ This implementation is based on Turk Algorithm, adapted to work efficiently.
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Alima-T/PUSH_SWAP.git
    cd push_swap
    ```
 2. Compile the program:
@@ -46,7 +46,6 @@ Example:
 ```bash
 ./push_swap 3 2 5 1 4
 ```
-
 ---
 
 ## Gretitude
